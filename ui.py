@@ -15,6 +15,7 @@ def delete_all():
                 Path(ui_files[name]['windows']).unlink()
             if ui_files[name].get('social_abs') and Path(ui_files[name]['social_abs']).exists():
                 Path(ui_files[name]['social_abs']).unlink()
+            del ui_files[name]
             count += 1
         except PermissionError:
             tk.messagebox.showinfo("Deletion Failed", f"Insufficent permissions to delete ui for {name}. If needed run in administrator mode.")
@@ -31,10 +32,11 @@ def delete_selected():
             Path(ui_files[name]['windows']).unlink()
         if ui_files[name].get('social_abs') and Path(ui_files[name]['social_abs']).exists():
             Path(ui_files[name]['social_abs']).unlink()
+        del ui_files[name]
         tk.messagebox.showinfo("Deletion Successful", f"Deleted Character UI for {name}")
     except PermissionError:
         tk.messagebox.showinfo("Deletion Failed", f"Insufficent permissions to delete ui for {name}. If needed run in administrator mode.")
-    
+    refresh_data()
     
 def backup_data():
     if not eq_folder_entry.get():
