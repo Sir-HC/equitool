@@ -154,14 +154,14 @@ def copy_to_bots():
     with open(bot_file) as bots:
         window_src = ui_files[name].get('windows')
         social_src = ui_files[name].get('social_abs')
-        dstname = bots.readline().capitalize()
+        dstname = bots.readline().strip().capitalize()
         while dstname:
             win_dst = f"{output_path}/UI_{dstname}_project1999.ini"
             soc_dst = f"{output_path}/{dstname}_project1999.ini"
             if (win_dst and Path(win_dst).exists()) or (soc_dst and Path(soc_dst).exists()):
                 response = tk.messagebox.askquestion("UI Exists", f"UI Data for {dstname} exists, overwrite?")
                 if response == 'no':
-                    dstname = bots.readline().capitalize()
+                    dstname = bots.readline().strip().capitalize()
                     continue
                     
             if window_src:
@@ -169,7 +169,7 @@ def copy_to_bots():
             if social_src:
                 shutil.copy(social_src, soc_dst)
             processed.append(dstname)
-            dstname = bots.readline().capitalize()
+            dstname = bots.readline().strip().capitalize()
     refresh_data()    
     tk.messagebox.showinfo("Copy Complete", f"Copied UI data from {name} to: {','.join(processed)}")
 
@@ -207,8 +207,8 @@ def resource_path(relative_path):
     
 root = tk.Tk()
 root.title("Everquest UI Tool")
-icon_path = resource_path("eq.ico")
-root.iconbitmap(icon_path)
+#icon_path = resource_path("eq.ico")
+#root.iconbitmap(icon_path)
 root.geometry("700x460")
 root.resizable(False, False)
 
