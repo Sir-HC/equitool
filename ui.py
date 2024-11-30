@@ -9,7 +9,11 @@ from zipfile import ZipFile
 
 def delete_all():
     count = 0
-    for name in ui_files:
+    response = tk.messagebox.askquestion("Confirm Delete All", f"Delete all UI Data for {len(ui_files)} Characters?")
+    if response == 'no':
+        return
+    names = list(ui_files.keys())
+    for name in names:
         try:
             if ui_files[name].get('windows') and Path(ui_files[name]['windows']).exists():
                 Path(ui_files[name]['windows']).unlink()
@@ -20,13 +24,18 @@ def delete_all():
         except PermissionError:
             tk.messagebox.showinfo("Deletion Failed", f"Insufficent permissions to delete ui for {name}. If needed run in administrator mode.")
             return
-      
+    
+    refresh_data()  
     tk.messagebox.showinfo("Deletion Successful", f"Deleted {count} Characters UI data.")
     
     
 def delete_selected():
+
     selection = treeview.selection()
     name = treeview.item(selection[0])['values'][0]
+    response = tk.messagebox.askquestion("Confirm Delete", f"Delete UI Data for {name}?")
+    if response == 'no':
+        return
     try:
         if ui_files[name].get('windows') and Path(ui_files[name]['windows']).exists():
             Path(ui_files[name]['windows']).unlink()
