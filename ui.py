@@ -207,8 +207,8 @@ def resource_path(relative_path):
     
 root = tk.Tk()
 root.title("Everquest UI Tool")
-#icon_path = resource_path("eq.ico")
-#root.iconbitmap(icon_path)
+icon_path = resource_path("eq.ico")
+root.iconbitmap(icon_path)
 root.geometry("700x460")
 root.resizable(False, False)
 
